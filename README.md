@@ -8,7 +8,7 @@ Bluff Brain flips trivia on its head. You're given real questions with real answ
 
 And the AI gives dramatic responses if you are not actually being funny. 
 
-🎮 Play it, Win it
+🎮 Play it live here: https://bluff-brain-vercel.vercel.app/
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
