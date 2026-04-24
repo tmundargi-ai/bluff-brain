@@ -78,10 +78,7 @@ npm start
 ```
 
 # Option 2: Deploy as a static site
-The game is a single React component (`bluff-brain.jsx`) with no external dependencies beyond React itself. You can deploy it to:
-- Vercel — `npx vercel`
-- Netlify — Drag and drop the build folder
-- GitHub Pages — Push to `gh-pages` branch
+The game is a single React component (`bluff-brain.jsx`) with no external dependencies beyond React itself. I used this option: Deploying the project to Vercel. 
 
 ---
 
