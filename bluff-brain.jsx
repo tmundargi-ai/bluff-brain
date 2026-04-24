@@ -218,16 +218,24 @@ export default function WrongAnswersOnly() {
   const ff = fOk ? "'Outfit', sans-serif" : "system-ui, sans-serif";
   const mn = fOk ? "'Space Mono', monospace" : "monospace";
   const base = { fontFamily: ff, maxWidth: 520, margin: "0 auto", padding: "0.5rem 0", position: "relative" };
+  const menuBase = { fontFamily: ff, maxWidth: 900, margin: "0 auto", padding: "0.5rem 0", position: "relative" };
 
   // ─── MENU ───
   if (scr === "menu") return (
-    <div style={{ ...base, opacity: mAnim ? 1 : 0, transform: mAnim ? "translateY(0)" : "translateY(12px)", transition: "all 0.5s ease" }}>
-      <div style={{ textAlign: "center", padding: "1.5rem 0 0.5rem" }}>
-        <div style={{ fontFamily: mn, fontSize: 11, letterSpacing: "0.15em", color: "#888780", textTransform: "uppercase", marginBottom: 12 }}>Comedy trivia game</div>
-        <div style={{ position: "relative", display: "inline-block" }}>
+    <div style={{ ...menuBase, opacity: mAnim ? 1 : 0, transform: mAnim ? "translateY(0)" : "translateY(12px)", transition: "all 0.5s ease" }}>
+      <style>{`
+        @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; min-height: 70vh; padding: 2rem 0; }
+        @media (max-width: 700px) { .menu-grid { grid-template-columns: 1fr; gap: 24px; min-height: auto; text-align: center; } }
+      `}</style>
+      <div className="menu-grid">
+        {/* Left — Hero */}
+        <div>
+          <div style={{ fontFamily: mn, fontSize: 11, letterSpacing: "0.15em", color: "#888780", textTransform: "uppercase", marginBottom: 16 }}>Comedy trivia game</div>
           <div style={{
-            fontSize: 64, fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.04em",
-            background: "linear-gradient(135deg, #FF6B35 0%, #F7258580 20%, #7B2FF7 45%, #4361EE 65%, #00D4AA 85%, #FFBE0B 100%)",
+            fontSize: 72, fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.04em",
+            background: "linear-gradient(135deg, #FF6B35 0%, #F72585 20%, #7B2FF7 45%, #4361EE 65%, #00D4AA 85%, #FFBE0B 100%)",
             backgroundSize: "200% 200%",
             WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
             backgroundClip: "text", color: "transparent",
@@ -236,36 +244,56 @@ export default function WrongAnswersOnly() {
           }}>
             BLUFF<br/>BRAIN
           </div>
+          <div style={{ fontSize: 24, fontWeight: 800, color: "#2C2C2A", marginTop: 16, letterSpacing: "0.06em", textTransform: "uppercase" }}>Wrong Answers Only</div>
+          <div style={{ fontFamily: mn, fontSize: 13, color: "#B4B2A9", marginTop: 16, lineHeight: 1.7 }}>
+            The comedy game where being right is losing.
+            <br />Hosted by <span style={{ color: "#7B2FF7", fontWeight: 700 }}>Captain Confidently Incorrect</span>
+          </div>
+          <div style={{ display: "flex", gap: 16, marginTop: 24, flexWrap: "wrap" }}>
+            {[
+              { label: "40+", sub: "Questions" },
+              { label: "5", sub: "Tiers" },
+              { label: "3", sub: "Modes" },
+              { label: "∞", sub: "Replays" },
+            ].map(({ label, sub }) => (
+              <div key={sub} style={{ textAlign: "center" }}>
+                <div style={{ fontFamily: mn, fontSize: 22, fontWeight: 700, color: "#2C2C2A" }}>{label}</div>
+                <div style={{ fontSize: 11, color: "#888780", marginTop: 2 }}>{sub}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div style={{ fontSize: 22, fontWeight: 800, color: "#2C2C2A", marginTop: 14, letterSpacing: "0.06em", textTransform: "uppercase" }}>Wrong Answers Only</div>
-        <div style={{ fontFamily: mn, fontSize: 12, color: "#B4B2A9", marginTop: 14, lineHeight: 1.6 }}>
-          The comedy game where being right is losing.
-          <br />Hosted by <span style={{ color: "#7B2FF7", fontWeight: 700 }}>Captain Confidently Incorrect</span>
-        </div>
-        <style>{`@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}`}</style>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "1.5rem 0 1rem" }}>
-        {[
-          { m: "classic", icon: "~", t: "Classic mode", d: "Relaxed rounds, no timer, maximum creativity", c: "#534AB7" },
-          { m: "blitz", icon: "!", t: "Blitz mode", d: "20 seconds per question — think fast, be funny", c: "#E24B4A" },
-          { m: "daily", icon: "#", t: "Daily challenge", d: "Same 5 questions for everyone today — compete globally", c: "#1D9E75" },
-        ].map(({ m, icon, t, d, c }) => (
-          <button key={m} onClick={() => start(m)} style={{
-            display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
-            border: "1.5px solid transparent", borderRadius: 14, background: "#FAFAF8",
-            cursor: "pointer", textAlign: "left", fontFamily: ff, transition: "all 0.15s",
-          }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = c; e.currentTarget.style.background = "#fff"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "transparent"; e.currentTarget.style.background = "#FAFAF8"; }}>
-            <div style={{ fontFamily: mn, width: 44, height: 44, borderRadius: 12, background: c, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 700, flexShrink: 0 }}>{icon}</div>
-            <div><div style={{ fontSize: 15, fontWeight: 700, color: "#2C2C2A" }}>{t}</div><div style={{ fontSize: 12, color: "#888780", marginTop: 1 }}>{d}</div></div>
+
+        {/* Right — Game Modes */}
+        <div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { m: "classic", icon: "~", t: "Classic mode", d: "Relaxed rounds, no timer, maximum creativity", c: "#534AB7" },
+              { m: "blitz", icon: "!", t: "Blitz mode", d: "20 seconds per question — think fast, be funny", c: "#E24B4A" },
+              { m: "daily", icon: "#", t: "Daily challenge", d: "Same 5 questions for everyone today — compete globally", c: "#1D9E75" },
+            ].map(({ m, icon, t, d, c }) => (
+              <button key={m} onClick={() => start(m)} style={{
+                display: "flex", alignItems: "center", gap: 14, padding: "16px 20px",
+                border: "1.5px solid transparent", borderRadius: 14, background: "#FAFAF8",
+                cursor: "pointer", textAlign: "left", fontFamily: ff, transition: "all 0.15s",
+              }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = c; e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 16px ${c}18`; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "transparent"; e.currentTarget.style.background = "#FAFAF8"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ fontFamily: mn, width: 48, height: 48, borderRadius: 12, background: c, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 700, flexShrink: 0 }}>{icon}</div>
+                <div><div style={{ fontSize: 16, fontWeight: 700, color: "#2C2C2A" }}>{t}</div><div style={{ fontSize: 13, color: "#888780", marginTop: 2 }}>{d}</div></div>
+              </button>
+            ))}
+          </div>
+          <button onClick={() => { loadB(); setScr("leaderboard"); }} style={{ width: "100%", padding: "13px", marginTop: 12, border: "1px solid #D3D1C7", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 14, fontWeight: 600, fontFamily: ff, color: "#5F5E5A", transition: "all 0.15s" }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#FAFAF8"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+            Leaderboard
           </button>
-        ))}
-      </div>
-      <button onClick={() => { loadB(); setScr("leaderboard"); }} style={{ width: "100%", padding: "11px", border: "1px solid #D3D1C7", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: ff, color: "#5F5E5A" }}>Leaderboard</button>
-      <div style={{ fontFamily: mn, textAlign: "center", fontSize: 11, color: "#B4B2A9", marginTop: 20, lineHeight: 1.7 }}>
-        Tip: The funnier your wrong answer, the higher your score.
-        <br />Check the confidence box for bonus points. Correct answers score ZERO.
+          <div style={{ fontFamily: mn, textAlign: "center", fontSize: 11, color: "#B4B2A9", marginTop: 16, lineHeight: 1.7 }}>
+            Tip: The funnier your wrong answer, the higher your score.
+            <br />Check the confidence box for bonus points. Correct answers score ZERO.
+          </div>
+        </div>
       </div>
     </div>
   );
