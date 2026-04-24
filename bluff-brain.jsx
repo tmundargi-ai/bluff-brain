@@ -222,77 +222,141 @@ export default function WrongAnswersOnly() {
 
   // ─── MENU ───
   if (scr === "menu") return (
-    <div style={{ ...menuBase, opacity: mAnim ? 1 : 0, transform: mAnim ? "translateY(0)" : "translateY(12px)", transition: "all 0.5s ease" }}>
+    <div style={{ position: "relative", minHeight: "100vh", overflow: "hidden", fontFamily: ff, opacity: mAnim ? 1 : 0, transition: "opacity 0.5s ease" }}>
       <style>{`
         @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; min-height: 70vh; padding: 2rem 0; }
-        @media (max-width: 700px) { .menu-grid { grid-template-columns: 1fr; gap: 24px; min-height: auto; text-align: center; } }
+        @keyframes cloudsMove{0%{transform:translateX(-200px)}100%{transform:translateX(calc(100vw + 200px))}}
+        @keyframes cloudsSlow{0%{transform:translateX(100vw)}100%{transform:translateX(-300px)}}
+        @keyframes sparkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.3)}}
+        @keyframes bobble{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        .scene-wrap { position: absolute; inset: 0; z-index: 0; }
+        .menu-over {
+          position: relative; z-index: 1;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          min-height: 100vh; padding: 2rem 1rem; text-align: center;
+        }
       `}</style>
-      <div className="menu-grid">
-        {/* Left — Hero */}
-        <div>
-          <div style={{ fontFamily: mn, fontSize: 11, letterSpacing: "0.15em", color: "#888780", textTransform: "uppercase", marginBottom: 16 }}>Comedy trivia game</div>
-          <div style={{
-            fontSize: 72, fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.04em",
-            background: "linear-gradient(135deg, #FF6B35 0%, #F72585 20%, #7B2FF7 45%, #4361EE 65%, #00D4AA 85%, #FFBE0B 100%)",
-            backgroundSize: "200% 200%",
-            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-            backgroundClip: "text", color: "transparent",
-            animation: "gradientShift 4s ease-in-out infinite alternate",
-            padding: "4px 0",
-          }}>
-            BLUFF<br/>BRAIN
-          </div>
-          <div style={{ fontSize: 24, fontWeight: 800, color: "#2C2C2A", marginTop: 16, letterSpacing: "0.06em", textTransform: "uppercase" }}>Wrong Answers Only</div>
-          <div style={{ fontFamily: mn, fontSize: 13, color: "#B4B2A9", marginTop: 16, lineHeight: 1.7 }}>
-            The comedy game where being right is losing.
-            <br />Hosted by <span style={{ color: "#7B2FF7", fontWeight: 700 }}>Captain Confidently Incorrect</span>
-          </div>
-          <div style={{ display: "flex", gap: 16, marginTop: 24, flexWrap: "wrap" }}>
-            {[
-              { label: "40+", sub: "Questions" },
-              { label: "5", sub: "Tiers" },
-              { label: "3", sub: "Modes" },
-              { label: "∞", sub: "Replays" },
-            ].map(({ label, sub }) => (
-              <div key={sub} style={{ textAlign: "center" }}>
-                <div style={{ fontFamily: mn, fontSize: 22, fontWeight: 700, color: "#2C2C2A" }}>{label}</div>
-                <div style={{ fontSize: 11, color: "#888780", marginTop: 2 }}>{sub}</div>
-              </div>
-            ))}
-          </div>
+
+      <div className="scene-wrap">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style={{ width: "100%", height: "100%", position: "absolute", inset: 0 }}>
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#87CEEB"/>
+              <stop offset="45%" stopColor="#B8E4F9"/>
+              <stop offset="100%" stopColor="#E8F4FD"/>
+            </linearGradient>
+            <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#6DBF47"/>
+              <stop offset="100%" stopColor="#4A9E2F"/>
+            </linearGradient>
+            <linearGradient id="stage" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#7B2FF7"/>
+              <stop offset="100%" stopColor="#5B1FD4"/>
+            </linearGradient>
+          </defs>
+          <rect width="1440" height="900" fill="url(#sky)"/>
+          <circle cx="1200" cy="110" r="65" fill="#FFBE0B" opacity="0.9"/>
+          <circle cx="1200" cy="110" r="80" fill="#FFBE0B" opacity="0.12"/>
+          <circle cx="1200" cy="110" r="100" fill="#FFBE0B" opacity="0.06"/>
+          <g opacity="0.9">
+            <g style={{animation:"cloudsMove 40s linear infinite"}}>
+              <ellipse cx="0" cy="90" rx="85" ry="30" fill="white"/>
+              <ellipse cx="35" cy="75" rx="60" ry="24" fill="white"/>
+              <ellipse cx="-25" cy="82" rx="50" ry="20" fill="white"/>
+            </g>
+            <g style={{animation:"cloudsSlow 50s linear infinite"}}>
+              <ellipse cx="0" cy="150" rx="70" ry="22" fill="white" opacity="0.7"/>
+              <ellipse cx="30" cy="140" rx="50" ry="18" fill="white" opacity="0.7"/>
+            </g>
+            <g style={{animation:"cloudsMove 60s linear infinite",animationDelay:"15s"}}>
+              <ellipse cx="0" cy="120" rx="90" ry="26" fill="white" opacity="0.6"/>
+              <ellipse cx="45" cy="108" rx="55" ry="20" fill="white" opacity="0.6"/>
+            </g>
+          </g>
+          <ellipse cx="250" cy="500" rx="380" ry="140" fill="#85D164" opacity="0.5"/>
+          <ellipse cx="850" cy="510" rx="450" ry="160" fill="#7BC950" opacity="0.45"/>
+          <ellipse cx="1300" cy="505" rx="320" ry="130" fill="#85D164" opacity="0.5"/>
+          <rect x="0" y="500" width="1440" height="420" fill="url(#grass)"/>
+          <path d="M620,900 L665,560 L775,560 L820,900 Z" fill="#A0896D"/>
+          <path d="M635,900 L670,565 L680,565 L648,900 Z" fill="#8B7355" opacity="0.3"/>
+          <path d="M805,900 L760,565 L770,565 L792,900 Z" fill="#8B7355" opacity="0.3"/>
+          {[0,1,2,3,4,5].map(i=><line key={`dl${i}`} x1={720} y1={580+i*55} x2={720} y2={595+i*55} stroke="rgba(255,255,255,0.35)" strokeWidth="3" strokeLinecap="round"/>)}
+          <rect x="590" y="480" width="260" height="85" rx="8" fill="url(#stage)"/>
+          <rect x="600" y="485" width="240" height="18" rx="4" fill="rgba(0,0,0,0.15)"/>
+          <rect x="605" y="510" width="230" height="3" rx="1.5" fill="rgba(255,255,255,0.12)"/>
+          <rect x="605" y="522" width="230" height="3" rx="1.5" fill="rgba(255,255,255,0.08)"/>
+          <rect x="605" y="534" width="230" height="3" rx="1.5" fill="rgba(255,255,255,0.06)"/>
+          <rect x="640" y="490" width="160" height="30" rx="4" fill="#1a1a2e"/>
+          <text x="720" y="512" textAnchor="middle" fill="#00D4AA" fontSize="13" fontFamily="monospace" fontWeight="bold">SCORE: ???</text>
+          <rect x="582" y="420" width="7" height="65" fill="#444"/>
+          <circle cx="585" cy="415" r="11" fill="#FFBE0B" opacity="0.9"/>
+          <circle cx="585" cy="415" r="16" fill="#FFBE0B" opacity="0.2"/>
+          <rect x="851" y="420" width="7" height="65" fill="#444"/>
+          <circle cx="854" cy="415" r="11" fill="#F72585" opacity="0.9"/>
+          <circle cx="854" cy="415" r="16" fill="#F72585" opacity="0.2"/>
+          {[70,180,330,430].map((x,i)=><g key={`tl${i}`}><rect x={x+12} y={485-i*6} width="10" height="35" fill="#8B6914"/><polygon points={`${x},${485-i*6} ${x+17},${430-i*10} ${x+34},${485-i*6}`} fill="#2D8B2D"/><polygon points={`${x+4},${462-i*8} ${x+17},${415-i*10} ${x+30},${462-i*8}`} fill="#3DA03D"/><polygon points={`${x+7},${442-i*8} ${x+17},${400-i*10} ${x+27},${442-i*8}`} fill="#4DB84D"/></g>)}
+          {[1010,1110,1240,1350].map((x,i)=><g key={`tr${i}`}><rect x={x+12} y={485-i*6} width="10" height="35" fill="#8B6914"/><polygon points={`${x},${485-i*6} ${x+17},${430-i*10} ${x+34},${485-i*6}`} fill="#2D8B2D"/><polygon points={`${x+4},${462-i*8} ${x+17},${415-i*10} ${x+30},${462-i*8}`} fill="#3DA03D"/><polygon points={`${x+7},${442-i*8} ${x+17},${400-i*10} ${x+27},${442-i*8}`} fill="#4DB84D"/></g>)}
+          {[100,240,380,500,940,1060,1180,1330].map((x,i)=><g key={`fl${i}`}><circle cx={x} cy={545+(i%3)*12} r={4+i%2} fill={["#F72585","#FFBE0B","#FF6B35","#7B2FF7","#00D4AA"][i%5]}/><rect x={x-1} y={549+(i%3)*12} width="2" height="8" fill="#3DA03D"/></g>)}
+          {[{x:640,y:440},{x:800,y:445},{x:720,y:400},{x:560,y:465},{x:880,y:460}].map((s,i)=><circle key={`sp${i}`} cx={s.x} cy={s.y} r="3" fill="#FFBE0B" style={{animation:`sparkle ${1.5+i*0.3}s ease-in-out infinite`,animationDelay:`${i*0.5}s`}}/>)}
+          {[0,1,2,3,4].map(i=><g key={`fp${i}`}><rect x={618-i*5} y={560+i*60} width="5" height="30" rx="2" fill="#A07D1A"/></g>)}
+          {[0,1,2,3,4].map(i=><g key={`fp2${i}`}><rect x={817+i*5} y={560+i*60} width="5" height="30" rx="2" fill="#A07D1A"/></g>)}
+        </svg>
+      </div>
+
+      <div className="menu-over">
+        <div style={{
+          fontSize: 80, fontWeight: 900, lineHeight: 0.88, letterSpacing: "-0.04em",
+          background: "linear-gradient(135deg, #FF6B35 0%, #F72585 20%, #7B2FF7 45%, #4361EE 65%, #00D4AA 85%, #FFBE0B 100%)",
+          backgroundSize: "200% 200%",
+          WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+          backgroundClip: "text", color: "transparent",
+          animation: "gradientShift 4s ease-in-out infinite alternate",
+          filter: "drop-shadow(0 3px 10px rgba(123,47,247,0.3))",
+          marginBottom: 8,
+        }}>
+          BLUFF<br/>BRAIN
+        </div>
+        <div style={{ fontSize: 22, fontWeight: 800, color: "#2C2C2A", letterSpacing: "0.06em", textTransform: "uppercase", textShadow: "0 2px 8px rgba(255,255,255,0.9)", marginBottom: 6 }}>Wrong Answers Only</div>
+        <div style={{ fontFamily: mn, fontSize: 12, color: "#555", marginBottom: 32, textShadow: "0 1px 4px rgba(255,255,255,0.9)" }}>
+          Hosted by <span style={{ color: "#7B2FF7", fontWeight: 700 }}>Captain Confidently Incorrect</span>
         </div>
 
-        {/* Right — Game Modes */}
-        <div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {[
-              { m: "classic", icon: "~", t: "Classic mode", d: "Relaxed rounds, no timer, maximum creativity", c: "#534AB7" },
-              { m: "blitz", icon: "!", t: "Blitz mode", d: "20 seconds per question — think fast, be funny", c: "#E24B4A" },
-              { m: "daily", icon: "#", t: "Daily challenge", d: "Same 5 questions for everyone today — compete globally", c: "#1D9E75" },
-            ].map(({ m, icon, t, d, c }) => (
-              <button key={m} onClick={() => start(m)} style={{
-                display: "flex", alignItems: "center", gap: 14, padding: "16px 20px",
-                border: "1.5px solid transparent", borderRadius: 14, background: "#FAFAF8",
-                cursor: "pointer", textAlign: "left", fontFamily: ff, transition: "all 0.15s",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = c; e.currentTarget.style.background = "#fff"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 4px 16px ${c}18`; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "transparent"; e.currentTarget.style.background = "#FAFAF8"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                <div style={{ fontFamily: mn, width: 48, height: 48, borderRadius: 12, background: c, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 700, flexShrink: 0 }}>{icon}</div>
-                <div><div style={{ fontSize: 16, fontWeight: 700, color: "#2C2C2A" }}>{t}</div><div style={{ fontSize: 13, color: "#888780", marginTop: 2 }}>{d}</div></div>
-              </button>
-            ))}
-          </div>
-          <button onClick={() => { loadB(); setScr("leaderboard"); }} style={{ width: "100%", padding: "13px", marginTop: 12, border: "1px solid #D3D1C7", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 14, fontWeight: 600, fontFamily: ff, color: "#5F5E5A", transition: "all 0.15s" }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#FAFAF8"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-            Leaderboard
-          </button>
-          <div style={{ fontFamily: mn, textAlign: "center", fontSize: 11, color: "#B4B2A9", marginTop: 16, lineHeight: 1.7 }}>
-            Tip: The funnier your wrong answer, the higher your score.
-            <br />Check the confidence box for bonus points. Correct answers score ZERO.
-          </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%", maxWidth: 420 }}>
+          {[
+            { m: "classic", icon: "~", t: "Classic mode", d: "No timer, maximum creativity", c: "#534AB7" },
+            { m: "blitz", icon: "!", t: "Blitz mode", d: "20 seconds — think fast, be funny", c: "#E24B4A" },
+            { m: "daily", icon: "#", t: "Daily challenge", d: "Same questions for everyone today", c: "#1D9E75" },
+          ].map(({ m, icon, t, d, c }) => (
+            <button key={m} onClick={() => start(m)} style={{
+              display: "flex", alignItems: "center", gap: 14, padding: "14px 20px",
+              border: "2px solid rgba(255,255,255,0.6)", borderRadius: 14,
+              background: "rgba(255,255,255,0.88)", backdropFilter: "blur(12px)",
+              cursor: "pointer", textAlign: "left", fontFamily: ff, transition: "all 0.2s",
+              boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = c; e.currentTarget.style.background = "rgba(255,255,255,0.95)"; e.currentTarget.style.transform = "translateY(-2px) scale(1.01)"; e.currentTarget.style.boxShadow = `0 6px 24px ${c}20`; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.6)"; e.currentTarget.style.background = "rgba(255,255,255,0.88)"; e.currentTarget.style.transform = "translateY(0) scale(1)"; e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.06)"; }}>
+              <div style={{ fontFamily: mn, width: 44, height: 44, borderRadius: 12, background: c, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, fontWeight: 700, flexShrink: 0 }}>{icon}</div>
+              <div><div style={{ fontSize: 15, fontWeight: 700, color: "#2C2C2A" }}>{t}</div><div style={{ fontSize: 12, color: "#888780", marginTop: 1 }}>{d}</div></div>
+            </button>
+          ))}
+        </div>
+
+        <button onClick={() => { loadB(); setScr("leaderboard"); }} style={{
+          width: "100%", maxWidth: 420, padding: "12px", marginTop: 10,
+          border: "2px solid rgba(255,255,255,0.6)", borderRadius: 10,
+          background: "rgba(255,255,255,0.75)", backdropFilter: "blur(12px)",
+          cursor: "pointer", fontSize: 14, fontWeight: 600, fontFamily: ff, color: "#5F5E5A",
+          transition: "all 0.15s", boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        }}
+          onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.92)"; }}
+          onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.75)"; }}>
+          Leaderboard
+        </button>
+
+        <div style={{ fontFamily: mn, fontSize: 11, color: "#2C2C2A", marginTop: 16, lineHeight: 1.7, textShadow: "0 1px 3px rgba(255,255,255,0.8)" }}>
+          Tip: The funnier your wrong answer, the higher your score.
+          <br />Check the confidence box for bonus points. Correct answers score ZERO.
         </div>
       </div>
     </div>
