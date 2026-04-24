@@ -1,0 +1,29 @@
+{
+  "name": "bluff-brain",
+  "version": "1.0.0",
+  "description": "The comedy trivia game where being right is losing. Wrong Answers Only.",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.4.0"
+  },
+  "keywords": [
+    "trivia",
+    "comedy",
+    "game",
+    "react",
+    "codex",
+    "wrong-answers"
+  ],
+  "author": "",
+  "license": "MIT"
+}
