@@ -14,7 +14,7 @@ And the AI gives dramatic responses if you are not actually being funny.
 
 # Features
 
-# 🎯 Three Game Modes
+# Three Game Modes
 - Classic Mode — Relaxed rounds, no timer, maximum creativity. Perfect for crafting the ultimate wrong answer.
 - Blitz Mode — 20 seconds per question. Think fast, be funny, don't overthink it.
 - Daily Challenge — Same 5 questions for everyone, every day. Compete globally on the leaderboard.
@@ -24,7 +24,7 @@ Every answer gets a personalized verdict from the Captain — ranging from *"I'v
 
 Five scoring tiers: Legendary → High → Medium → Low → Correct (zero points!)
 
-# 💯 Scoring System
+# Scoring System
 Your score is based on:
 - Creativity — Absurd, unexpected answers score higher
 - Commitment — Starting with "Obviously..." or "Well actually..." earns bonus points
@@ -32,7 +32,7 @@ Your score is based on:
 - Length & Effort — One-word answers score low. Elaborate nonsense scores high.
 - Correct Answer Rejection — If you accidentally give the right answer, the screen shakes and rejects it. This is a wrong answers game.
 
-# 🔥 Streak System
+# Streak System
 Land multiple high-scoring answers in a row to build a streak multiplier. Your best streak is tracked and displayed.
 
 # Confetti Explosions
@@ -62,7 +62,7 @@ Single-column responsive layout that works perfectly on phones, tablets, and des
 
 ---
 
-# 🚀 Getting Started
+# Getting Started
 
 # Option 1: Run locally with React
 ```bash
@@ -118,7 +118,7 @@ The entire game lives in a single React component file for simplicity and portab
 
 ---
 
-# 🗺️ Roadmap
+# Roadmap
 
 - [ ] AI-powered scoring — Replace local scoring with real API calls for genuine humor evaluation
 - [ ] Multiplayer mode — Real-time head-to-head wrong answer battles
